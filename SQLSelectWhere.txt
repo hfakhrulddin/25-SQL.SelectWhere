@@ -1,0 +1,77 @@
+--Select all col. from one table--
+SELECT* FROM CUSTOMER ;
+
+--Select two col from one table--
+SELECT FIRSTNAME, LASTNAME FROM CUSTOMER;
+
+--Select all col. from two tables--
+SELECT* FROM CUSTOMER, INVOICE ;
+
+--Finding a row by using a simple equality--
+SELECT ID, Name
+FROM Product
+WHERE Name = 'Blade';
+
+
+--Finding rows that contain a value as a part of a string--
+SELECT ID, Name, Color
+FROM Product
+WHERE Name LIKE ('%Frame%');
+
+
+--Finding rows by using a comparison operator--
+SELECT ID, Name
+FROM Product
+WHERE ProductID <= 12 ;
+
+
+--Finding rows that meet any of three conditions--
+SELECT ID, Name
+FROM Product
+WHERE ProductID = 2
+    OR ProductID = 4
+    OR Name = 'Spokes' ;
+
+
+--Finding rows that must meet several conditions--
+SELECT ID, Name, Color
+FROM Product
+WHERE Name LIKE ('%Frame%')
+    AND Name LIKE ('HL%')
+    AND Color = 'Red' ;
+
+--Finding rows that are in a list of values--
+SELECT ID, Name, Color
+FROM Product
+WHERE Name IN ('Blade', 'Crown Race', 'Spokes');
+
+
+--Finding rows that have a value between two values--
+SELECT ID, Name, Color
+FROM Production.Product
+WHERE ProductID BETWEEN 725 AND 734;
+
+
+--Checking for NULL values--
+SELECT ProductID, Name, Weight
+FROM Product
+WHERE Weight IS NULL
+
+
+--Finding total sales and discounts for each product--
+SELECT p.Name AS ProductName,
+NonDiscountSales = (OrderQty * UnitPrice),
+Discounts = ((OrderQty * UnitPrice) * UnitPriceDiscount)
+FROM Product AS p
+INNER JOIN SalesOrderDetail AS sod
+ON p.ProductID = sod.ProductID
+ORDER BY ProductName DESC;
+
+
+--Calculate total revenue for each product--
+SELECT 'Total income is', ((OrderQty * UnitPrice) * (1.0 - UnitPriceDiscount)), ' for ',
+p.Name AS ProductName
+FROM Product AS p
+INNER JOIN SalesOrderDetail AS sod
+ON p.ProductID = sod.ProductID
+ORDER BY ProductName ASC;
