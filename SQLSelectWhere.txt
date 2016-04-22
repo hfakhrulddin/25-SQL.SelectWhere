@@ -40,6 +40,8 @@ WHERE Name LIKE ('%Frame%')
     AND Name LIKE ('HL%')
     AND Color = 'Red' ;
 
+
+
 --Finding rows that are in a list of values--
 SELECT ID, Name, Color
 FROM Product
